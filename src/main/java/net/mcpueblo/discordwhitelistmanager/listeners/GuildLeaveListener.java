@@ -16,7 +16,7 @@ public class GuildLeaveListener extends ListenerAdapter {
 
     @Subscribe(priority = ListenerPriority.MONITOR)
     public void onGuildMemberLeave(GuildMemberRemoveEvent event) {
-        getLogger().log(INFO, "Event has started");
+        getLogger().log(INFO, "Event is firing!");
         String userID = event.getUser().getId();
         String userName = event.getUser().getAsTag();
         if (!(DiscordSRV.getPlugin().getAccountLinkManager().getUuid(userID) == null)) {

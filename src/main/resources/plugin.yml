@@ -1,0 +1,9 @@
+name: DiscordWhitelistManager
+version: ${project.version}
+main: net.mcpueblo.discordwhitelistmanager.DiscordWhitelistManager
+api-version: 1.13
+load: STARTUP
+depend: [DiscordSRV]
+authors: [JuanDelPueblo]
+description: Keeps Discord and Minecraft whitelist linked.
+website: https://mcpueblo.net

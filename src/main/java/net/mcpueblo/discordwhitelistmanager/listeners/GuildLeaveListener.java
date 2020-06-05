@@ -13,6 +13,7 @@ import net.mcpueblo.discordwhitelistmanager.utils.RemoveWhitelistUtil;
 import java.util.UUID;
 
 import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
 import static org.bukkit.Bukkit.getLogger;
 
 public class GuildLeaveListener extends ListenerAdapter {
@@ -21,21 +22,24 @@ public class GuildLeaveListener extends ListenerAdapter {
     public void isJDAReady(DiscordReadyEvent event) {
         JDA api = DiscordUtil.getJda();
         api.addEventListener(new GuildLeaveListener());
-        getLogger().log(INFO, "DiscordWhitelistManager has detected that DiscordSRV has been loaded!");
+        getLogger().log(INFO, "[DiscordWhitelistManager] DiscordSRV has finished loading, now listening to members leaving the guild...");
     }
 
     @Subscribe(priority = ListenerPriority.MONITOR)
     public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
-        getLogger().log(INFO, "Event is firing!");
         String userID = event.getUser().getId();
         String userName = event.getUser().getAsTag();
         if (!(DiscordSRV.getPlugin().getAccountLinkManager().getUuid(userID) == null)) {
+            getLogger().log(INFO, "[DiscordWhitelistManager] Linked user " + userName + " has left the Discord guild! Commencing removal procedures.");
             UUID mcUUID = DiscordSRV.getPlugin().getAccountLinkManager().getUuid(userID);
-            /* Add back later when the async player kick bug in DiscordSRV is fixed
-            DiscordSRV.getPlugin().getAccountLinkManager().unlink(userID); */
+            DiscordSRV.getPlugin().getAccountLinkManager().unlink(userID);
             RemoveWhitelistUtil.removeWhitelist(mcUUID);
             String playerName = RemoveWhitelistUtil.removeWhitelist(mcUUID);
-            getLogger().log(INFO, ("User " + userName + " has left the Discord guild, so " + playerName + " " + mcUUID + " has been unwhitelisted."));
+            if (!(playerName == null)) {
+                getLogger().log(INFO, "[DiscordWhitelistManager] " + playerName + " (" + mcUUID + "), linked to " + userName + ", has been fully removed from the server.");
+            } else {
+                getLogger().log(WARNING, "[DiscordWhitelistManager] Failed to remove player from whitelist!");
+            }
         }
     }
 }

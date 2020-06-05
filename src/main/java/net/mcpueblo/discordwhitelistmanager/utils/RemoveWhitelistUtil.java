@@ -13,6 +13,6 @@ public class RemoveWhitelistUtil {
             player.setWhitelisted(false);
             return playerName;
         }
-        return "unlinked";
+        return null;
     }
 }

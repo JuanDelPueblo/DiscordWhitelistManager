@@ -5,5 +5,5 @@ api-version: 1.13
 load: STARTUP
 depend: [DiscordSRV]
 authors: [JuanDelPueblo]
-description: Keeps Discord and Minecraft whitelist linked.
+description: Simple plugin to remove whitelist and unlink on guild leave.
 website: https://mcpueblo.net

@@ -1,2 +1,2 @@
 ﻿# DiscordWhitelistManager
-Simple plugin to remove whitelist and unlink on guild leave. Requires a [special fork of DiscordSRV](https://github.com/MCPueblo/DiscordSRV) until the async player kick bug has been fixed upstream.
+Simple plugin to remove whitelist and unlink on guild leave. Requires [DiscordSRV](https://github.com/DiscordSRV/DiscordSRV) to detect if a member has left and to unlink.
